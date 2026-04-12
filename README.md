@@ -50,7 +50,7 @@ La cartella `risultati` viene gestita automaticamente dai notebook per garantire
 ## 📊 Dataset
 
 Dataset di riferimento:  
-https://www.kaggle.com/datasets/dk123891/10000-movies-data :contentReference[oaicite:0]{index=0}
+https://www.kaggle.com/datasets/dk123891/10000-movies-data 
 
 Il file `dataset_ridotto.csv` deve essere collocato in `dataset/`.
 
