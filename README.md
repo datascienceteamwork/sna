@@ -24,14 +24,13 @@ La cartella `risultati` viene gestita automaticamente dai notebook per garantire
 │   ├── data.csv              # Dataset originale
 │   └── riduzione.ipynb       # Notebook per riduzione dataset
 ├── codice/
-│   └── etl/
-│       ├── 01_etl.ipynb            # Pulizia e preparazione dati
-│       ├── 02_eda.ipynb            # Analisi esplorativa (EDA)
-│       ├── 03_grafo.ipynb          # Costruzione del grafo (Giant Component)
-│       ├── 04_centralita.ipynb     # Metriche di centralità
-│       ├── 05_struttura_rete.ipynb # Community Detection e sottostrutture
-│       ├── 06_prediction.ipynb     # Link Prediction (ML)
-│       └── risultati/              # Output (CSV, PKL, immagini)
+│   ├── 01_etl.ipynb            # Pulizia e preparazione dati
+│   ├── 02_eda.ipynb            # Analisi esplorativa (EDA)
+│   ├── 03_grafo.ipynb          # Costruzione del grafo (Giant Component)
+│   ├── 04_centralita.ipynb     # Metriche di centralità
+│   ├── 05_struttura_rete.ipynb # Community Detection e sottostrutture
+│   ├── 06_prediction.ipynb     # Link Prediction (ML)
+│   └── risultati/              # Output (CSV, PKL, immagini)
 └── requirements.txt                # Dipendenze del progetto
 ```
 ---
