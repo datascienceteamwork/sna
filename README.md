@@ -1,56 +1,39 @@
-# 🎥 Movie Stars Collaboration Network Analysis
+## 🎬 Movie Actors Collaboration Network Analysis
 
-Questo progetto analizza la struttura e l’evoluzione della rete globale di collaborazioni tra attori cinematografici utilizzando tecniche avanzate di **Social Network Analysis (SNA)** e **Machine Learning**.
+Questo progetto analizza la rete globale di collaborazioni cinematografiche attraverso la **Social Network Analysis (SNA)** e il **Machine Learning**.  
 
-Attraverso la teoria dei grafi, il lavoro esplora come:
-
-- la **coesione strutturale**
-- la **centralità degli attori**
-- le **dinamiche di comunità**
-
-modellino l’industria del cinema.
-
----
-
-## 📊 Panoramica del Progetto
-
-L’analisi si basa su un dataset di migliaia di film, trasformato in un **grafo pesato** in cui:
-
+Partendo da un dataset di film, viene costruito un **grafo pesato** dove:
 - i **nodi** rappresentano gli attori  
-- gli **archi** rappresentano le collaborazioni (film in comune)  
+- gli **archi** rappresentano i film condivisi  
 
-Il progetto è suddiviso in fasi modulari, ciascuna documentata in un notebook dedicato.
+L'obiettivo è esplorare:
+- centralità
+- coesione strutturale
+- predizione di future collaborazioni  
 
 ---
 
-## 📂 Struttura dei Notebook
+## 📁 Struttura del Progetto
 
-### 01_etl.ipynb
-Caricamento e pulizia dei dati, estrazione delle liste di attori e generazione del dataset delle collaborazioni.
+Il progetto è organizzato in modo modulare.  
+La cartella `risultati` viene gestita automaticamente dai notebook per garantire la persistenza dei dati processati.
 
-### 02_eda.ipynb
-Analisi esplorativa dei dati (EDA) e studio della distribuzione dei pesi degli archi.
-
-### 03_grafo.ipynb
-Costruzione del grafo, estrazione della **Giant Component** *(4.313 nodi, 29.944 archi)* e analisi del grado.
-
-### 04_centralita.ipynb
-Calcolo delle principali metriche di centralità:
-- Degree  
-- Betweenness  
-- Closeness  
-- Eigenvector  
-- PageRank  
-
-### 05_struttura_rete.ipynb
-Analisi della coesione:
-- Triadi  
-- Clique massimali  
-- Community Detection (Louvain)  
-
-### 06_prediction.ipynb
-Modelli di **Link Prediction** per prevedere collaborazioni future.
-
+```bash
+├── dataset/
+│   ├── dataset_ridotto.csv   # Dataset finale utilizzato
+│   ├── data.csv              # Dataset originale
+│   └── riduzione.ipynb       # Notebook per riduzione dataset
+├── codice/
+│   └── etl/
+│       ├── 01_etl.ipynb            # Pulizia e preparazione dati
+│       ├── 02_eda.ipynb            # Analisi esplorativa (EDA)
+│       ├── 03_grafo.ipynb          # Costruzione del grafo (Giant Component)
+│       ├── 04_centralita.ipynb     # Metriche di centralità
+│       ├── 05_struttura_rete.ipynb # Community Detection e sottostrutture
+│       ├── 06_prediction.ipynb     # Link Prediction (ML)
+│       └── risultati/              # Output (CSV, PKL, immagini)
+└── requirements.txt                # Dipendenze del progetto
+```
 ---
 
 ## 🛠️ Tecnologie e Algoritmi
@@ -64,9 +47,63 @@ Modelli di **Link Prediction** per prevedere collaborazioni future.
 
 ---
 
+## 📊 Dataset
+
+Dataset di riferimento:  
+https://www.kaggle.com/datasets/dk123891/10000-movies-data :contentReference[oaicite:0]{index=0}
+
+Il file `dataset_ridotto.csv` deve essere collocato in `dataset/`.
+
+---
+
+## 🔄 Pipeline dei notebook
+
+I notebook vanno eseguiti **in ordine**. Ogni notebook dipende dagli output del precedente.
+
+```
+01_etl → 02_eda → 03_grafo → 04_centralita
+                            → 05_struttura_rete
+                            → 06_prediction
+```
+
+### 01 — ETL
+Carica il dataset grezzo, normalizza i nomi di attori e registi, filtra il rumore, costruisce la edge list persona–film e le coppie di collaborazione tra attori.
+
+**Output:** `movies_cleaned.csv`, `edges.csv`, `collab_df.csv`, `node_features.csv`
+
+### 02 — EDA
+Analisi esplorativa: distribuzioni di rating, anno, genere, numero di attori per film e peso delle collaborazioni. Tutto con visualizzazioni matplotlib/seaborn.
+
+**Input:** `movies_cleaned.csv`, `collab_df.csv`
+
+### 03 — Costruzione Grafo
+Costruisce il grafo di collaborazioni con NetworkX. Applica due filtri (attori con ≥ 2 film, nodi con degree ≥ 2), estrae la Giant Component e salva il grafo serializzato.
+
+**Input:** `movies_cleaned.csv`, `collab_df.csv`  
+**Output:** `graph_data.pkl`
+
+### 04 — Centralità
+Calcola e visualizza sulla Giant Component: Degree, Betweenness, Closeness, Eigenvector e PageRank. Include confronto Top-20 tra le metriche.
+
+**Input:** `graph_data.pkl`
+
+### 05 — Struttura della Rete
+Analisi strutturale: triadi e clustering, clique massimali, K-Core decomposition, ego network di attori chiave (Sandler, De Niro, Kumar), community detection con algoritmo di Louvain.
+
+**Input:** `graph_data.pkl`
+
+### 06 — Link Prediction
+Predizione di collaborazioni future usando metriche topologiche (Common Neighbors, Jaccard, Adamic-Adar, Resource Allocation). Valutazione con AUC-ROC e Precision-Recall su train/test split. Score composito normalizzato.
+
+**Input:** `graph_data.pkl`  
+**Output:** `link_predictions.csv`
+
+---
 ## ⚙️ Installazione ed Utilizzo
 
 ### 1. Clona il repository
 ```bash
-git clone https://github.com/tuo-username/movie-stars-sna.git
-cd movie-stars-sna
+git clone https://github.com/datascienceteamwork/sna.git
+cd sna
+pip install -r requirements.txt
+```
