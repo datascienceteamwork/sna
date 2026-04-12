@@ -49,10 +49,12 @@ La cartella `risultati` viene gestita automaticamente dai notebook per garantire
 
 ## 📊 Dataset
 
-Dataset di riferimento:  
-https://www.kaggle.com/datasets/dk123891/10000-movies-data 
+Dataset di riferimento (film più popolari dal 1915 al 2023):  
+https://www.kaggle.com/datasets/dk123891/10000-movies-data
 
-Il file `dataset_ridotto.csv` deve essere collocato in `dataset/`.
+Il file `data.csv` deve essere collocato in `dataset/`.
+
+Il dataset viene poi ridotto tramite lo script `riduzione.ipynb`, ottenendo `dataset_ridotto.csv` con film nel periodo 1980–2023.
 
 ---
 
