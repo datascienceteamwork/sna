@@ -31,7 +31,8 @@ La cartella `risultati` viene gestita automaticamente dai notebook per garantire
 │   ├── 05_struttura_rete.ipynb # Community Detection e sottostrutture
 │   ├── 06_prediction.ipynb     # Link Prediction (ML)
 │   └── risultati/              # Output (CSV, PKL, immagini)
-└── requirements.txt                # Dipendenze del progetto
+├── requirements.txt            # Dipendenze del progetto
+└── SNA_relazione.pdf           # Relazione progetto SNA    
 ```
 ---
 
